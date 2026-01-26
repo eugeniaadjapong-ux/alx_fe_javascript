@@ -5,24 +5,27 @@ const quotes = [
   { text: "Success is not final, failure is not fatal.", category: "Success" }
 ];
 
-// Display a random quote
-function showRandomQuote() {
+// Function to display a random quote
+function displayRandomQuote() {
   const quoteDisplay = document.getElementById("quoteDisplay");
 
   const randomIndex = Math.floor(Math.random() * quotes.length);
   const quote = quotes[randomIndex];
 
-  quoteDisplay.textContent = `"${quote.text}" — ${quote.category}`;
+  // Update DOM using innerHTML (required)
+  quoteDisplay.innerHTML = `
+    <p>"${quote.text}"</p>
+    <small>Category: ${quote.category}</small>
+  `;
 }
 
-// Create add-quote form logic (as required by instructions)
+// Function to support add-quote form (required by instructions)
 function createAddQuoteForm() {
-  // Form already exists in HTML, so this function supports the structure
-  // Instruction requires function definition, not duplication
+  // Form is already defined in HTML per instructions
   return;
 }
 
-// Add a new quote dynamically
+// Function to add a new quote
 function addQuote() {
   const textInput = document.getElementById("newQuoteText");
   const categoryInput = document.getElementById("newQuoteCategory");
@@ -34,16 +37,25 @@ function addQuote() {
     return;
   }
 
-  quotes.push({ text: text, category: category });
+  // Add new quote to array
+  quotes.push({
+    text: text,
+    category: category
+  });
 
+  // Clear input fields
   textInput.value = "";
   categoryInput.value = "";
 
-  showRandomQuote();
+  // Update DOM after adding quote
+  displayRandomQuote();
 }
 
-// Button event listener
-document.getElementById("newQuote").addEventListener("click", showRandomQuote);
+// Event listener for "Show New Quote" button
+document
+  .getElementById("newQuote")
+  .addEventListener("click", displayRandomQuote);
 
-// Initial call
-showRandomQuote();
+// Initial display
+displayRandomQuote();
+
